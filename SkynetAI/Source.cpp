@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -44,6 +46,9 @@ inline string displayGrid() {
 
 int main()
 {
+	// setting the seed for the random num generator so it's different each run
+	srand(static_cast<unsigned int>(time(0)));
+
 	//selects a random answer from 1 to 64
 	int answer = rand() % 64 + 1;
 
