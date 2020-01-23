@@ -45,28 +45,36 @@ inline string displayGrid() {
 int main()
 {
 	//selects a random answer from 1 to 64
-	int answer = rand() % 64;
-	cout << "The answer is: " << answer << endl;
+	int answer = rand() % 64 + 1;
+
+	cout << "The target was last spotted at: " << answer << endl;
+	cout << "Sending search party...\n";
+
 	//puts numbers 1-64 into the myArray array
 	for (int i = 1; i <= 64; i++)
 	{
 		myArray[i - 1] = to_string(i);
 	}
+
 	//displays grid
 	cout << disp << displayGrid() << endl;
+	//Initiates the 'search'
 	while (solved == false)
 	{
+		//Algorithm
 		targetLocationPrediction = ((searchGridHighNumber - searchGridLowNumber) / 2) + searchGridLowNumber;
-
+		cout << "Searching...\n" << endl;
+		//If the target was 'found'
 		if (targetLocationPrediction == answer) {
-			cout << "found! " << targetLocationPrediction<< endl;
+			cout << "found! " << targetLocationPrediction << endl;
 			solved = true;
 
 			cout << disp << displayGrid() << endl;
 		}
+		//If the search 'overshot'
 		else if (targetLocationPrediction > answer)
 		{
-			cout << "missed! " << targetLocationPrediction << endl;
+			cout << "Target not found at this location... " << targetLocationPrediction << " ...overshot. Rerouting search.\n" << endl;
 			searchGridHighNumber = targetLocationPrediction;
 
 			for (int i = targetLocationPrediction; i <= 64; i++)
@@ -76,9 +84,10 @@ int main()
 
 			cout << disp << displayGrid() << endl;
 		}
+		// the search 'undershot'
 		else if (targetLocationPrediction < answer)
 		{
-			cout << "missed! " << targetLocationPrediction << endl;
+			cout << "Target not found at this location... " << targetLocationPrediction << " ...undershot. Rerouting search.\n" << endl;
 			searchGridLowNumber = targetLocationPrediction;
 
 			for (int i = 1; i <= targetLocationPrediction; i++)
